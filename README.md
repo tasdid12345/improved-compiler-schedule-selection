@@ -19,6 +19,26 @@ python analysis.py
 
 **Results:** Results are written to `results.json` (and a chart to `figures/`).
 
+## Results (latest run)
+
+On a synthetic loop-nest schedule dataset, a standard random-forest cost surrogate reached 46.9% mean regret and 17% top-1 accuracy, while my class-balanced, CV-tuned LightGBM model reached 3.7% regret and 53% top-1, though the baseline was untuned.
+
+| Metric | Value |
+|---|---|
+| baseline_score | 0.469 |
+| baseline_score_std | 0.00549 |
+| baseline_top1_accuracy | 0.1704 |
+| baseline_spearman | 0.7632 |
+| improved_score | 0.03749 |
+| improved_score_std | 0 |
+| improved_top1_accuracy | 0.5278 |
+| improved_spearman | 0.9251 |
+| improvement | 0.4316 |
+
+Run on 2026-10-21. Full output: [results.json](results.json) · [run.log](run.log)
+
+Notes: Synthetic data, not the paper's dataset; the paper's own method is not reproduced (only a generic random-forest baseline is used). The baseline uses fixed hyper-parameters while the improved model is CV-tuned, so gains may partly reflect tuning. Regret and top-1 use noisy observed runtimes on a modest number of test programs. Seeds vary model randomness only; the data split and generator are fixed at seed 42.
+
 ## Reference
 
 This project is motivated by the following paper:
