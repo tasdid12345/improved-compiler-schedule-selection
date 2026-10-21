@@ -1,0 +1,29 @@
+{
+  "question": "Can a class-balanced, CV-tuned gradient-boosting cost model with categorical schedule features choose faster compiler schedules on held-out programs than a standard random-forest cost surrogate?",
+  "method": "Seeded synthetic loop-nest simulator; program-level 70/30 split; each test program's candidate schedules ranked by predicted runtime; mean regret as main metric.",
+  "dataset": {
+    "name": "Synthetic loop-nest schedule simulator (seeded numpy generator)",
+    "source_url": "https://numpy.org",
+    "n_rows": 24000,
+    "n_train": 16800,
+    "n_test": 7200,
+    "same_as_paper": false,
+    "baseline_is_papers_method": false
+  },
+  "metric_name": "mean regret (chosen runtime / best candidate runtime - 1)",
+  "higher_is_better": false,
+  "baseline": "RandomForestRegressor (300 trees, min_samples_leaf=2) on one-hot schedule features plus numeric program features, predicting raw runtime.",
+  "improved": "LightGBM regressor with native categorical features, hyper-parameters chosen by 3-fold GroupKFold CV on training programs, per-program z-scored log-runtime target and program-balanced sample weights.",
+  "metrics": {
+    "baseline_score": 0.4690461940569722,
+    "baseline_score_std": 0.005489852057733802,
+    "baseline_top1_accuracy": 0.17037037037037037,
+    "baseline_spearman": 0.7631735112222918,
+    "improved_score": 0.03749054648478738,
+    "improved_score_std": 0.0,
+    "improved_top1_accuracy": 0.5277777777777778,
+    "improved_spearman": 0.9251139413157738,
+    "improvement": 0.4315556475721848
+  },
+  "notes": "Synthetic data, not the paper's dataset; the paper's own method is not reproduced (only a generic random-forest baseline is used). The baseline uses fixed hyper-parameters while the improved model is CV-tuned, so gains may partly reflect tuning. Regret and top-1 use noisy observed runtimes on a modest number of test programs. Seeds vary model randomness only; the data split and generator are fixed at seed 42."
+}
